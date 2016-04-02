@@ -1,4 +1,10 @@
-# Tooth Growth Assignment 1 Part 2
+---
+title: "Tooth Growth Assignment 1 Part 2"
+output:
+  pdf_document: default
+  html_document:
+    keep_md: yes
+---
 
 ## Loading and preprocessing the data
 
@@ -50,7 +56,7 @@ table(ToothGrowth$supp, ToothGrowth$dose)
 hist(ToothGrowth$len, xlab = "Length", main= "Frequence of Tooth Length")
 ```
 
-![](toothGrowth_files/figure-html/unnamed-chunk-2-1.png)
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png)
 
 ```r
 plot <- ggplot(ToothGrowth,aes(x=factor(dose),y=len,fill=factor(dose)))
@@ -58,7 +64,7 @@ labels <- c(OJ = "Orange Juice", VC = "Vitamin C")
 plot + geom_boxplot() + facet_grid(.~supp, labeller = labeller(supp = labels)) + xlab("Length of Tooth") + ylab("Dosage (mg)") + ggtitle("Vitamin C on Tooth Growth in Guinea Pigs")
 ```
 
-![](toothGrowth_files/figure-html/unnamed-chunk-2-2.png)
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-2.png)
 ## Confidence interval
 
 ```r
@@ -110,7 +116,7 @@ sessionInfo()
 ```
 ## R version 3.2.3 (2015-12-10)
 ## Platform: x86_64-w64-mingw32/x64 (64-bit)
-## Running under: Windows 8.1 x64 (build 9600)
+## Running under: Windows >= 8 x64 (build 9200)
 ## 
 ## locale:
 ## [1] LC_COLLATE=English_United States.1252 
@@ -123,12 +129,14 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] ggplot2_2.0.0
+## [1] ggplot2_2.0.0 knitr_1.12.3 
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_0.12.3      digest_0.6.9     grid_3.2.3       plyr_1.8.3      
-##  [5] gtable_0.1.2     magrittr_1.5     evaluate_0.8.3   scales_0.3.0    
-##  [9] stringi_1.0-1    reshape2_1.4.1   rmarkdown_0.9.5  labeling_0.3    
-## [13] tools_3.2.3      stringr_1.0.0    munsell_0.4.3    yaml_2.1.13     
-## [17] colorspace_1.2-6 htmltools_0.3    knitr_1.12.3
+##  [1] Rcpp_0.12.3        digest_0.6.9       grid_3.2.3        
+##  [4] plyr_1.8.3         gtable_0.1.2       formatR_1.3       
+##  [7] magrittr_1.5       evaluate_0.8.3     scales_0.3.0      
+## [10] highr_0.5.1        stringi_1.0-1      reshape2_1.4.1    
+## [13] rmarkdown_0.9.5    labeling_0.3       tools_3.2.3       
+## [16] stringr_1.0.0      munsell_0.4.3      yaml_2.1.13       
+## [19] rsconnect_0.4.1.11 colorspace_1.2-6   htmltools_0.3
 ```
