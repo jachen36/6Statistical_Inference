@@ -1,0 +1,61 @@
+---
+title: "Tooth Growth Assignment 1 Part 2"
+output: 
+  html_document:
+    keep_md: true
+---
+
+## Loading and preprocessing the data
+```{r}
+library("datasets")
+library("ggplot2")
+data("ToothGrowth")
+```
+
+## Exploratory Data Analyses
+```{r}
+str(ToothGrowth)
+summary(ToothGrowth)
+table(ToothGrowth$supp, ToothGrowth$dose)
+hist(ToothGrowth$len, xlab = "Length", main= "Frequence of Tooth Length")
+plot <- ggplot(ToothGrowth,aes(x=factor(dose),y=len,fill=factor(dose)))
+labels <- c(OJ = "Orange Juice", VC = "Vitamin C")
+plot + geom_boxplot() + facet_grid(.~supp, labeller = labeller(supp = labels)) + xlab("Length of Tooth") + ylab("Dosage (mg)") + ggtitle("Vitamin C on Tooth Growth in Guinea Pigs")
+```
+## Confidence interval
+```{r}
+## Subsetting data based on dose amount
+doseHalf <- subset(ToothGrowth, dose == 0.5)
+dose1 <- subset(ToothGrowth, dose == 1)
+dose2 <- subset(ToothGrowth, dose == 2)
+## T.test is performed on the dose amount
+doseHalf.t <- t.test(len ~ supp, paired = F, var.equal = F, data=doseHalf)
+dose1.t <- t.test(len ~ supp, paired = F, var.equal = F, data=dose1)
+dose2.t <- t.test(len ~ supp, paired = F, var.equal = F, data=dose2)
+```
+Data was subsetted based on the dose amount: 0.5, 1, & 2. And var.equal is assume to be false because based on the explorartory box plot the standard devivation weren't the same. 
+
+```{r}
+## Setting up the confidence interval data frame
+interval <- data.frame(p.value = c(doseHalf.t$p.value,
+                                   dose1.t$p.value,
+                                   dose2.t$p.value),
+                       Conf.low = c(doseHalf.t$conf[1],
+                                    dose1.t$conf[1],
+                                    dose2.t$conf[2]),
+                       Conf.high = c(doseHalf.t$conf[2],
+                                     dose1.t$conf[2],
+                                     dose2.t$conf[2]),
+                       row.names=c("doseHalf",
+                                   "dose 1",
+                                   "dose 2"))
+interval
+```
+
+
+## Conclusion
+Based on the interval table, it showed that orange juice is more effective at lower dosage than vitamin c. However, the effective less becomes the same as the dosage increase. So at lower dosage, orange juice is a better choice. So the most important factor is dose and not the source. Assumption made is that the experiment done in a randomized way and the sample is representative of the population being sampled. And there were no biased introduced to the experiment. 
+
+```{r}
+sessionInfo()
+```
